@@ -56,6 +56,10 @@ function isStuned()
 		end		
 	end
 	
+function GetInteract_UUID_list()
+	return _UUID_list
+end
+
 	function canInteract_UUID(type) -- canInteract_UUID("pocket")
 	local target = getPlayer().target.entity
 		for i=0,#_UUID_list[type] do
@@ -67,8 +71,8 @@ function isStuned()
 	end
 	
 	function LookAtEntity(entityID) --untested
-	local entityCoord = getBoundingBox(entityID)
-	local entityCenter = getCenter(entityCoord)
-	   lookAt(entityCenter)
+		local entityCoord = getBoundingBox(entityID)
+		local entityCenter = getCenter(entityCoord)
+			lookAt(entityCenter)
 	   
 	end
