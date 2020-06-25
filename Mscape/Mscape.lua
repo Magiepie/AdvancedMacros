@@ -72,7 +72,7 @@ end
 	
 	function LookAtEntity(entityID) --untested
 		local entityCoord = getBoundingBox(entityID)
-		local entityCenter = getCenter(entityCoord)
-			lookAt(entityCenter)
+		local x,y,z = entityCoord.getCenter()
+			lookAt(x,y,z)
 	   
 	end
