@@ -3,8 +3,7 @@ function round(num, numDecimalPlaces)
     return math.floor(num * mult + 0.5) / mult
   end
   
-  
-  function GetLookAtEntityID() -- haxxerish
+function GetLookAtEntityID() -- haxxerish
       local arg = getEntityList()
       for a,b in pairs(arg) do
           local entST = getEntity(arg[a].id)
@@ -21,15 +20,32 @@ function round(num, numDecimalPlaces)
           end
        
       end
-  end
-  
+end
       
-  function LookAtEntity(entityID) 
+function LookAtEntity(entityID) 
       local entityCoord = getBoundingBox(entityID)
       local x,y,z = entityCoord.getCenter()
       lookAt(x,y,z)
      
+end
+  
+  local TempEntityID = false
+  while not TempEntityID do
+      sleep(50)
+      if isKeyDown('F4') then
+          if not TempEntityID then
+              if GetLookAtEntityID() then
+                  TempEntityID = GetLookAtEntityID()
+                  toast("Tracking", TempEntityID)
+              end
+              break
+          end
+      end
   end
   
-  log(GetLookAtEntityID())
+  while not isKeyDown(2) do
+      LookAtEntity(TempEntityID) 
+      sleep(30)
+  end
+   
    
