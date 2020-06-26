@@ -28,7 +28,16 @@ function LookAtEntity(entityID)
       lookAt(x,y,z)
      
 end
-  
+
+function TgetPlayerBlockPos()
+	local playerPos = {}
+	local x,y,z = getPlayerBlockPos()
+	playerPos[1] = x
+	playerPos[2] = y
+	playerPos[3] = z
+ return playerPos
+
+end
   local TempEntityID = false
   while not TempEntityID do
       sleep(50)
@@ -43,9 +52,28 @@ end
       end
   end
   
+  local reach = {}
+  local Reached = false
   while not isKeyDown(2) do
-      LookAtEntity(TempEntityID) 
-      sleep(30)
+      if TempEntityID then
+          LookAtEntity(TempEntityID) 	
+          sleep(30)
+          forward(-1)
+          local EntPos = getEntity(TempEntityID)
+          local playerPos = TgetPlayerBlockPos()
+              if round(playerPos[1],0) == round(EntPos.pos[1],0) then	reach[1] = true	else reach[1] = false end
+              if round(playerPos[3],0) == round(EntPos.pos[3],0) then	reach[2] = true	else reach[2] = false end
+              if reach[1] and reach[2] then
+                  Reached = true
+              else 
+                  Reached = false
+              end
+          if Reached then
+              forward(0)
+              sleep(1000)
+          end
+      end
+  
   end
    
    
