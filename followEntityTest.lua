@@ -29,15 +29,6 @@ function LookAtEntity(entityID)
      
 end
 
-function TgetPlayerBlockPos()
-	local playerPos = {}
-	local x,y,z = getPlayerBlockPos()
-	playerPos[1] = x
-	playerPos[2] = y
-	playerPos[3] = z
- return playerPos
-
-end
   local TempEntityID = false
   while not TempEntityID do
       sleep(50)
@@ -60,9 +51,9 @@ end
           sleep(30)
           forward(-1)
           local EntPos = getEntity(TempEntityID)
-          local playerPos = TgetPlayerBlockPos()
-              if round(playerPos[1],0) == round(EntPos.pos[1],0) then	reach[1] = true	else reach[1] = false end
-              if round(playerPos[3],0) == round(EntPos.pos[3],0) then	reach[2] = true	else reach[2] = false end
+          local x,y,z = getPlayerBlockPos()
+              if round(x,0) == round(EntPos.pos[1],0) then	reach[1] = true	else reach[1] = false end
+              if round(z,0) == round(EntPos.pos[3],0) then	reach[2] = true	else reach[2] = false end
               if reach[1] and reach[2] then
                   Reached = true
               else 
