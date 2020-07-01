@@ -60,7 +60,8 @@ while not isKeyDown(2) do
           forward(-1)
           local EntPos = getEntity(TempEntityID)
           local X,Y,Z = getPlayerBlockPos()
-          if PlayerDist(X, Y, Z, EntPos.pos[1], EntPos.pos[3], EntPos.pos[2]) <= 3 then          
+          local distance = PlayerDist(X, Y, Z, round(EntPos.pos[1],0), round(EntPos.pos[2],0), round(EntPos.pos[3],0))         
+          if distance <= 2.5 then        
               forward(0)
               sleep(1000)
           end
