@@ -29,8 +29,16 @@ function LookAtEntity(entityID)
      
 end
 
-  local TempEntityID = false
-  while not TempEntityID do
+function PlayerDist(X, Y, Z, X2, Y2, Z2)
+    local PlayerDX = X2 - X; 
+    local PlayerDZ = Z2 - Z; 
+    local PlayerDY = Y2 - Y;
+    local PlayerDist = math.sqrt(math.abs(PlayerDX*PlayerDX)+math.abs(PlayerDZ*PlayerDZ)+math.abs(PlayerDY*PlayerDY));	
+    return PlayerDist
+   end
+
+local TempEntityID = false
+while not TempEntityID do 
       sleep(50)
       if isKeyDown('F4') then
           if not TempEntityID then
@@ -41,30 +49,22 @@ end
               break
           end
       end
-  end
+end
   
-  local reach = {}
-  local Reached = false
-  while not isKeyDown(2) do
+local reach = {}
+local Reached = false
+while not isKeyDown(2) do
       if TempEntityID then
           LookAtEntity(TempEntityID) 	
           sleep(30)
           forward(-1)
           local EntPos = getEntity(TempEntityID)
-          local x,y,z = getPlayerBlockPos()
-              if round(x,0) == round(EntPos.pos[1],0) then	reach[1] = true	else reach[1] = false end
-              if round(z,0) == round(EntPos.pos[3],0) then	reach[2] = true	else reach[2] = false end
-              if reach[1] and reach[2] then
-                  Reached = true
-              else 
-                  Reached = false
-              end
-          if Reached then
+          local X,Y,Z = getPlayerBlockPos()
+          if PlayerDist(X, Y, Z, EntPos.pos[1], EntPos.pos[3], EntPos.pos[2]) <= 3 then          
               forward(0)
               sleep(1000)
           end
       end
-  
-  end
+end
    
    
