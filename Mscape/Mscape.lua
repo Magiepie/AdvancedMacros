@@ -34,30 +34,43 @@ function isStuned()
 		return GItems
 	end
 	
-	function GetLookAtEntityName() -- dosnt work with pickpock entitys
+	function GetLookAtEntityID() -- dose not work with pickpock entitys
 		local arg = getEntityList()
 		for a,b in pairs(arg) do
+			--do not forget to 
 			if getEntity(arg[a].id).uuid == getPlayer().target.entity.uuid then
-				local textInfo = getEntity(arg[a].id).nbt.CustomName		
-				local entityName = string.match(textInfo, [[white","text":"([^"]+)]])	
-			 return entityName
+			 return arg[a].id
 			end
 		end
 	end
 	
-				 --do regex stuff
-			 --[[
-				{"extra":
-				[{"color":"gold","text":"["},
-				{"color":"dark_green","text":"2"}, -- level
-				{"color":"gold","text":"] "},
-				{"color":"white","text":"Cow "},
-				{"color":"gold","text":"["},
-				{"color":"red","text":"8"} -- HitPoints
-				{"color":"gold","text":"]"}
-				],
-				"text":""}
-				--]]
+
+	function GetLookAtEntityName() -- dosnt work with pickpock entitys
+		local entityUUID = getEntity(GetLookAtEntityID()).uuid
+			if entityUUID == getPlayer().target.entity.uuid then
+			 local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
+			 local entityName = string.match(textInfo, [[white","text":"([^"]+)]])
+			 return entityName
+			end	
+	end
+
+	function GetLookAtEntitLevel() -- dosnt work with pickpock entitys
+		local entityUUID = getEntity(GetLookAtEntityID()).uuid
+			if entityUUID == getPlayer().target.entity.uuid then
+			 local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
+			 local entityName = string.match(textInfo, [[dark_green","text":"([^"]+)]])
+			 return entityName
+			end	
+	end
+	
+	function GetLookAtEntitHP() -- dosnt work with pickpock entitys
+		local entityUUID = getEntity(GetLookAtEntityID()).uuid
+			if entityUUID == getPlayer().target.entity.uuid then
+			 local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
+			 local entityName = string.match(textInfo, [[red","text":"([^"]+)]])
+			 return entityName
+			end	
+	end
 	
 	function GetNearbyPlayers()
 		local arg = getEntityList()
