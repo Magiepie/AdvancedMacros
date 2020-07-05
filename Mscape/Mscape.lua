@@ -38,8 +38,14 @@ function isStuned()
 		local arg = getEntityList()
 		for a,b in pairs(arg) do
 			if getEntity(arg[a].id).uuid == getPlayer().target.entity.uuid then
-			 log(getEntity(arg[a].id).nbt.CustomName)
-			 --do regex stuff
+				local textInfo = getEntity(arg[a].id).nbt.CustomName		
+				local entityName = string.match(textInfo, [[white","text":"([^"]+)]])	
+			 return entityName
+			end
+		end
+	end
+	
+				 --do regex stuff
 			 --[[
 				{"extra":
 				[{"color":"gold","text":"["},
@@ -52,12 +58,6 @@ function isStuned()
 				],
 				"text":""}
 				--]]
-	
-			 return getEntity(arg[a].id).nbt.CustomName
-			end
-		end
-	end
-	
 	
 	function GetNearbyPlayers()
 		local arg = getEntityList()
