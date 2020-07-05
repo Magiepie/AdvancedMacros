@@ -34,6 +34,41 @@ function isStuned()
 		return GItems
 	end
 	
+	function GetLookAtEntityName() -- dosnt work with pickpock entitys
+		local arg = getEntityList()
+		for a,b in pairs(arg) do
+			if getEntity(arg[a].id).uuid == getPlayer().target.entity.uuid then
+			 log(getEntity(arg[a].id).nbt.CustomName)
+			 --do regex stuff
+			 --[[
+				{"extra":
+				[{"color":"gold","text":"["},
+				{"color":"dark_green","text":"2"}, -- level
+				{"color":"gold","text":"] "},
+				{"color":"white","text":"Cow "},
+				{"color":"gold","text":"["},
+				{"color":"red","text":"8"} -- HitPoints
+				{"color":"gold","text":"]"}
+				],
+				"text":""}
+				--]]
+	
+			 return getEntity(arg[a].id).nbt.CustomName
+			end
+		end
+	end
+	
+	
+	function GetNearbyPlayers()
+		local arg = getEntityList()
+		for a,b in pairs(arg) do
+			if arg[a].class == "net.minecraft.client.entity.player.ClientPlayerEntity" then
+				log(arg[a].name.." - "..arg[a].id )
+	
+			end
+		end
+	end
+
 	function GetPickPocketCoords()
 		local arg = getEntityList()
 			for a,b in pairs(arg) do
@@ -73,6 +108,13 @@ end
 	function LookAtEntity(entityID) --untested
 		local entityCoord = getBoundingBox(entityID)
 		local x,y,z = entityCoord.getCenter()
-			lookAt(x,y,z)
-	   
+			lookAt(x,y,z)	   
 	end
+
+	function PlayerDist(X, Y, Z, X2, Y2, Z2)
+		local PlayerDX = X2 - X; 
+		local PlayerDZ = Z2 - Z; 
+		local PlayerDY = Y2 - Y;
+		local PlayerDist = math.sqrt(math.abs(PlayerDX*PlayerDX)+math.abs(PlayerDZ*PlayerDZ)+math.abs(PlayerDY*PlayerDY));	
+		return PlayerDist
+	   end
