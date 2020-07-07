@@ -12,7 +12,7 @@ function ProspectBlock()
 					
 	if getPlayer().target and getPlayer().target.block then
 		local prospectedOre = IdToOre[getPlayer().target.block.id]
-			if prospectedOre == nil then return "unidentified" end
+			if prospectedOre == nil then return "unidentified "..getPlayer().target.block.id end
 			return prospectedOre
 	end
 	return false
