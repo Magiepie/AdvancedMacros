@@ -1,10 +1,11 @@
 function GetLookAtEntityID() -- dose not work with pickpock entitys
 	local arg = getEntityList()
 	for a,b in pairs(arg) do
-		--do not forget to 
-		if getEntity(arg[a].id).uuid == getPlayer().target.entity.uuid then
-			return arg[a].id
-		end
+        if  getPlayer().target.entity and getPlayer().targe then
+            if getEntity(arg[a].id).uuid == getPlayer().target.entity.uuid then
+                return arg[a].id
+            end
+        end
 	end
 end
 
