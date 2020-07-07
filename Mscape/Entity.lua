@@ -36,7 +36,7 @@ function GetLookAtEntitHP() -- dosnt work with pickpock entitys
 		end	
 end
 
-function LookAtEntity(entityID) --untested
+function LookAtEntity(entityID)
 	local entityCoord = getBoundingBox(entityID)
 	local x,y,z = entityCoord.getCenter()
 		lookAt(x,y,z)	   
