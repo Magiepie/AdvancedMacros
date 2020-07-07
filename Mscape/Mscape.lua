@@ -1,23 +1,3 @@
-function isStuned()
-	local NpEffects = #getPlayer().potionEffects
-	 if NpEffects <= 1 then
-	  for i = 1 , NpEffects do     
-	   if getPlayer().potionEffects[i].id == "effect.minecraft.slowness" then
-		return true
-	   end
-	  end
-	 end
-	return false
-end
-	
-function CheckHealth(hp)
-	if getPlayer().health <= hp then
-		toast("Warning!", "Low Health")
-		return false
-	end
-		return true
-end
-	
 function GetGroundItems()
 local arg = getEntityList()
 local GItems = {}
@@ -32,54 +12,6 @@ local GItems = {}
 			end
 	end
 	return GItems
-end
-	
-function GetLookAtEntityID() -- dose not work with pickpock entitys
-	local arg = getEntityList()
-	for a,b in pairs(arg) do
-		--do not forget to 
-		if getEntity(arg[a].id).uuid == getPlayer().target.entity.uuid then
-			return arg[a].id
-		end
-	end
-end
-	
-
-function GetLookAtEntityName() -- dosnt work with pickpock entitys
-	local entityUUID = getEntity(GetLookAtEntityID()).uuid
-		if entityUUID == getPlayer().target.entity.uuid then
-			local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
-			local entityName = string.match(textInfo, [[white","text":"([^"]+)]])
-			return entityName
-		end	
-end
-
-function GetLookAtEntitLevel() -- dosnt work with pickpock entitys
-	local entityUUID = getEntity(GetLookAtEntityID()).uuid
-		if entityUUID == getPlayer().target.entity.uuid then
-			local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
-			local entityName = string.match(textInfo, [[dark_green","text":"([^"]+)]])
-			return entityName
-		end	
-end
-	
-function GetLookAtEntitHP() -- dosnt work with pickpock entitys
-	local entityUUID = getEntity(GetLookAtEntityID()).uuid
-		if entityUUID == getPlayer().target.entity.uuid then
-			local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
-			local entityName = string.match(textInfo, [[red","text":"([^"]+)]])
-			return entityName
-		end	
-end
-	
-function GetNearbyPlayers()
-	local arg = getEntityList()
-	for a,b in pairs(arg) do
-		if arg[a].class == "net.minecraft.client.entity.player.ClientPlayerEntity" then
-			log(arg[a].name.." - "..arg[a].id )
-
-		end
-	end
 end
 
 function GetPickPocketCoords()
@@ -116,18 +48,4 @@ local target = getPlayer().target.entity
 		end
 	end
   return false
-end
-
-function LookAtEntity(entityID) --untested
-	local entityCoord = getBoundingBox(entityID)
-	local x,y,z = entityCoord.getCenter()
-		lookAt(x,y,z)	   
-end
-
-function PlayerDist(X, Y, Z, X2, Y2, Z2)
-	local PlayerDX = X2 - X; 
-	local PlayerDZ = Z2 - Z; 
-	local PlayerDY = Y2 - Y;
-	local PlayerDist = math.sqrt(math.abs(PlayerDX*PlayerDX)+math.abs(PlayerDZ*PlayerDZ)+math.abs(PlayerDY*PlayerDY));	
-		return PlayerDist
 end
