@@ -19,7 +19,8 @@ function MoveToXYZ(x,y,z)
 			sleep(30)
 			forward(-1)
 		end
-	forward(0)
+    forward(0)
+    return true
 end
 
 function GetWaypointStart(waypoints)
