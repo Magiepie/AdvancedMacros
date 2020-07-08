@@ -1,3 +1,8 @@
+function round(num, numDecimalPlaces)
+	local mult = 5^(numDecimalPlaces or 0)
+	return math.floor(num * mult + 0.5) / mult
+  end
+
 function GetGroundItems()
 local arg = getEntityList()
 local GItems = {}

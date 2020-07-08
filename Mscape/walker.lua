@@ -1,16 +1,32 @@
-local WayPoints = 
-{
-	["lumbyAkBank"] = {
-		[1] = { x = 683, y = 62, z = 372}, -- lumby fishing area
-		[2] = { x = 672, y = 62, z = 372},
-		[3] = { x = 672, y = 62, z = 317},
-		[4] = { x = 699, y = 63, z = 317}, --bridge
-		[5] = { x = 699, y = 63, z = 313}, --end
-		[6] = { x = 765, y = 65,z = 313},
-		[7] = { x = 765, y = 66,z = 346},
-		[8] = { x = 765, y = 66,z = 346},
-		[9] = { x = 752, y = 67,z = 346},
-		[10] = { x = 752, y = 67,z = 337} --bank AlKharid
-	}
-}
---[0] = { x = , y = ,z = },
+local files = filesystem.list("~macros/MScape/waypoints")
+
+toast("FILE","loading waypoints Files...")
+for a, b in pairs(files) do
+  local pass, err = pRun("~macros/MScape/waypoints/"..b)
+  if not pass then
+    log("&cstartup&7/&c"..b.."&4 "..err)
+  end
+end
+
+local lumbyAK = GetWayPoints("lumbyAkBank")
+
+function MoveToXYZ(x,y,z)
+    while not isKeyDown(2) do
+		local X,Y,Z = getPlayerBlockPos()
+		local distance = PlayerDist(X, Y, Z ,x,y,z)
+		if distance <= 1 then break end
+			LookAtBlock(x,y,z)
+			sleep(30)
+			forward(-1)
+		end
+	forward(0)
+end
+
+function FollowPath(waypoints) --"lumbyAkBank"
+	local path = GetWayPoints(waypoints)
+	local X,Y,Z = getPlayerBlockPos()
+	local distance1 = PlayerDist(X, Y, Z ,path[1].x,path[1].y,path[1].z)
+	local distance2 = PlayerDist(X, Y, Z ,path[#path].x,#path].y,#path].z)
+	
+end
+
