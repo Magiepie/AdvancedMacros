@@ -8,12 +8,22 @@ end
 
 function GetNearbyPlayers()
 	local arg = getEntityList()
-	for a,b in pairs(arg) do
-		if arg[a].class == "net.minecraft.client.entity.player.ClientPlayerEntity" then
-			log(arg[a].name.." - "..arg[a].id )
-
+	local playerList = {}
+	for i=1, #arg do
+		if arg[i].class == "net.minecraft.client.entity.player.ClientPlayerEntity" then
+			playerList[#playerList+1]= {name = arg[i].name, id =arg[i].id}
 		end
-	end
+	end	
+	return playerList
+end
+
+function GetPlayerID(name)
+    local playerList = GetNearbyPlayers()
+        for i=1, #playerList do
+            if name == playerList[i].name then
+               return playerList[i].id
+            end
+        end
 end
 
 function isStuned()
