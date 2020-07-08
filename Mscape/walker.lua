@@ -26,7 +26,7 @@ function GetWaypointStart(waypoints)
 	local path = GetWayPoints(waypoints)
 	local X,Y,Z = getPlayerBlockPos()
 	local distance1 = PlayerDist(X, Y, Z ,path[1].x,path[1].y,path[1].z)
-	local distance2 = PlayerDist(X, Y, Z ,path[#path].x,#path].y,#path].z)
+	local distance2 = PlayerDist(X, Y, Z ,path[#path].x,path[#path].y,path[#path].z)
 	local var,limit, step
 	if distance1 > distance2 then
 		var = 1 limit = #path step = 1
@@ -38,9 +38,12 @@ function GetWaypointStart(waypoints)
 end
 
 function FollowPath(waypoints) --"lumbyAkBank"
-	local var,limit, step = GetWaypointStart(waypoints)
+	local path = GetWayPoints(waypoints)
+	local var, limit, step = GetWaypointStart(waypoints)
 	for i = var ,limit, step do
-	print(i) 
+		local reached = MoveToXYZ(path[i].x,path[i].y,path[i].z)
+		while not reached do
+		 sleep(3000)
+		end
 	end 
 end
-
