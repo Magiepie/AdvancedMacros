@@ -8,14 +8,21 @@ for a, b in pairs(files) do
   end
 end
 
-local lumbyAK = GetWayPoints("lumbyAkBank")
+function LookAtBlock(X,Y,Z,offset)
+    if offset == nil then offset = 0 end
+    local boundingBox = getBoundingBox(X,Y,Z)
+        if boundingBox then
+	        local x,y,z = boundingBox.getCenter()
+          lookAt(X+x,Y+y+offset,Z+z)
+        end
+end
 
 function MoveToXYZ(x,y,z)
-    while not isKeyDown(2) do
+    while not isKeyDown("ESCAPE") do
 		local X,Y,Z = getPlayerBlockPos()
 		local distance = PlayerDist(X, Y, Z ,x,y,z)
 		if distance <= 1 then break end
-			LookAtBlock(x,y,z)
+			LookAtBlock(x,y,z,2)
 			sleep(30)
 			forward(-1)
 		end

@@ -23,11 +23,3 @@ function ProspectBlock(x,y,z)
     if prospectedOre == nil then return "unidentified "..getBlock(x,y,z).id end
  return prospectedOre
 end
-
-function LookAtBlock(X,Y,Z)
-    local boundingBox = getBoundingBox(X,Y,Z)
-        if boundingBox then
-	        local x,y,z = boundingBox.getCenter()
-          lookAt(X+x,Y+y,Z+z)
-        end
-end
