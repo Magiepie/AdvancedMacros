@@ -10,40 +10,33 @@ function GetLookAtEntityID() -- dose not work with pickpock entitys
 end
 
 function GetLookAtEntityName() -- dosnt work with pickpock entitys
-	if getPlayer().target and getPlayer().target.entity  then
-	local entityUUID = getEntity(GetLookAtEntityID()).uuid
-		if entityUUID == getPlayer().target.entity.uuid then
-			local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
-			local entityName = string.match(textInfo, [[white","text":"([^"]+)]])
-			if entityName == nil then 
-				 entityName = string.match(textInfo, [[gold","text":"([^"]+)]]) -- banker
-			else entityName = textInfo 
-			end
-		 return entityName
-		end	
-	end
+    local textInfo, gold = GetLookAtEntityCNInfo("white"), GetLookAtEntityCNInfo("gold")
+    if textInfo == nil then 
+        textInfo = gold -- banker
+    end
+    return textInfo
 end
 
 function GetLookAtEntityLevel() -- dosnt work with pickpock entitys
-    if getPlayer().target and getPlayer().target.entity  then
-	local entityUUID = getEntity(GetLookAtEntityID()).uuid
-		if entityUUID == getPlayer().target.entity.uuid then
-			local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
-			local entityLevel = string.match(textInfo, [[dark_green","text":"([^"]+)]])
-			return entityLevel
-        end	
-    end
+    return GetLookAtEntityCNInfo("dark_green")
 end
 	
 function GetLookAtEntityHP() -- dosnt work with pickpock entitys
+    return GetLookAtEntityCNInfo("red")
+end
+
+function GetLookAtCustomName()
     if getPlayer().target and getPlayer().target.entity  then
-	local entityUUID = getEntity(GetLookAtEntityID()).uuid
-		if entityUUID == getPlayer().target.entity.uuid then
-			local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
-			local entityHP = string.match(textInfo, [[red","text":"([^"]+)]])
-			return entityHP
-        end	
-    end
+        local entityUUID = getEntity(GetLookAtEntityID()).uuid
+            if entityUUID == getPlayer().target.entity.uuid then
+                local textInfo = getEntity(GetLookAtEntityID()).nbt.CustomName		
+                return textInfo
+            end	
+        end
+end
+
+function GetLookAtEntityCNInfo(color)
+    return  string.match(GetLookAtCustomName(), color..[[","text":"([^"]+)]])
 end
 
 

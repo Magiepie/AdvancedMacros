@@ -55,3 +55,7 @@ function FollowPath(waypoints) --"lumbyAkBank"
 		end
 	end 
 end
+
+function Baritone()
+	runOnMC(function(text) say(text) end, "/command")
+end
