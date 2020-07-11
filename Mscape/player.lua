@@ -60,7 +60,7 @@ function UseSpell(spellNAme)
     sleep(200)
 end
 
-local function GetNBTslot(NBTName) -- thankyou "Bob pre-compiles stuff"
+function GetNBTslot(NBTName) -- thankyou "Bob pre-compiles stuff"
     local inv = openInventory()
     local getSlot = inv.getSlot
       for i = 1,54 do
