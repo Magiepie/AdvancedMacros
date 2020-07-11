@@ -45,3 +45,30 @@ function PlayerDist(X, Y, Z, X2, Y2, Z2)
 	local PlayerDist = math.sqrt(math.abs(PlayerDX*PlayerDX)+math.abs(PlayerDZ*PlayerDZ)+math.abs(PlayerDY*PlayerDY));	
 		return PlayerDist
 end
+
+function OpenTab(tabname)
+    local slot, inv = GetNBTslot(tabname)
+    inv.quick(slot)
+end
+
+function FindSpellSlot(SpellName)
+        -- openInventory().quick(54) x 4
+end
+
+function UseSpell(spellNAme)
+    OpenTab("Spellbook")
+    sleep(200)
+end
+
+local function GetNBTslot(NBTName) -- thankyou "Bob pre-compiles stuff"
+    local inv = openInventory()
+    local getSlot = inv.getSlot
+      for i = 1,54 do
+        local item = getSlot(i)
+        if item then 
+          if item.nbt.tag.display.Name:find(NBTName) then return i,inv end
+        end
+      end
+    return false
+ end
+
